@@ -129,37 +129,7 @@ getBranch() {
 
 export PS1="$PS1 \$(getBranch) "
 
-### --- Start of Aliases
-alias l1='ls -1'
-alias cp='cp -v'
-alias rm='rm -iv'
-alias mv='mv -iv'
-alias c=clear
-alias cls=clear
-
-alias dims='docker images'
-alias dp='docker ps'
-alias dcp='docker-compose ps'
-alias dcupd='docker-compose up -d'
-alias dcdown='docker-compose down'
-alias dco='docker-compose'
-
-alias nd='npm run dev'
-
-alias gloh="git pull origin hot"
-alias gpo="git push origin"
-alias gpos='git push origin $(git branch --show-current)'
-alias gswh='git switch hot'
-alias git-open='git remote get-url origin | xargs open'
-
-alias wstorm='webstorm'
-alias wst='webstorm'
-
-alias leet='nvim leetcode.nvim'
-
-
-alias fode='fzfoutput=$(fzf); [ "$fzfoutput" != "" ] && code $fzfoutput; unset fzfoutput'
-### --- End of Aliases
+source ~/.aliases.zsh
 
 function google() {
     open /Applications/Google\ Chrome.app/ "http://www.google.com/search?q= $1";
@@ -197,10 +167,26 @@ eval "$(rbenv init - zsh)"
 # 외부 환경 변수 파일 추가
 source $HOME/.envs.zshrc
 
-if [ "$TMUX" = "" ]; then tmux; fi
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]] && [[ -z "$TMUX" ]]; then
+  # tmux attach || tmux new
+  tmux
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # image.nvim 경로 설정 - https://github.com/3rd/image.nvim?tab=readme-ov-file#installing-imagemagick
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib/$DYLD_LIBRARY_PATH"
 
+# Ignore clear command from zsh history
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# ESC ESC: prepend sudo to current line, or recall previous command with sudo
+sudo-command-line() {
+  [[ -z $BUFFER ]] && LBUFFER="$(fc -ln -1)"
+  LBUFFER="sudo $LBUFFER"
+}
+zle -N sudo-command-line
+bindkey "\e\e" sudo-command-line
