@@ -365,6 +365,14 @@
                         {
                             "from": { "consumer_key_code": "eject" },
                             "to": [{ "consumer_key_code": "play_or_pause" }]
+                        },
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "caps_lock" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "left_control" }]
                         }
                     ]
                 },
@@ -403,6 +411,14 @@
             "selected": true,
             "simple_modifications": [
                 {
+                    "from": { "key_code": "caps_lock" },
+                    "to": [{ "key_code": "left_control" }]
+                },
+                {
+                    "from": { "key_code": "left_control" },
+                    "to": [{ "key_code": "caps_lock" }]
+                },
+                {
                     "from": { "key_code": "right_command" },
                     "to": [{ "key_code": "f19" }]
                 },
@@ -410,7 +426,8 @@
                     "from": { "key_code": "right_control" },
                     "to": [{ "key_code": "right_command" }]
                 }
-            ]
+            ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
 }
