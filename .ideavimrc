@@ -14,7 +14,6 @@ set noerrorbells
 nnoremap <Enter> o<Esc>
 nnoremap <C-s> <C-u>
 
-<<<<<<< HEAD
 nnoremap <F3> :noh <Enter>
 
 nnoremap <F4> :vs <Enter> <C-]>
